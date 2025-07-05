@@ -54,6 +54,8 @@ private const val PLAYBACK_SPEED_MENU_FILTER_CLASS_DESCRIPTOR =
     "$COMPONENTS_PATH/PlaybackSpeedMenuFilter;"
 private const val VIDEO_QUALITY_MENU_FILTER_CLASS_DESCRIPTOR =
     "$COMPONENTS_PATH/VideoQualityMenuFilter;"
+private const val EXTENSION_ADVANCED_VIDEO_QUALITY_MENU_CLASS_DESCRIPTOR =
+    "$VIDEO_PATH/AdvancedVideoQualityMenuPatch;"
 private const val EXTENSION_AV1_CODEC_CLASS_DESCRIPTOR =
     "$VIDEO_PATH/AV1CodecPatch;"
 private const val EXTENSION_VP9_CODEC_CLASS_DESCRIPTOR =
@@ -66,8 +68,6 @@ private const val EXTENSION_PLAYBACK_SPEED_CLASS_DESCRIPTOR =
     "$VIDEO_PATH/PlaybackSpeedPatch;"
 private const val EXTENSION_RELOAD_VIDEO_CLASS_DESCRIPTOR =
     "$VIDEO_PATH/ReloadVideoPatch;"
-private const val EXTENSION_RESTORE_OLD_VIDEO_QUALITY_MENU_CLASS_DESCRIPTOR =
-    "$VIDEO_PATH/RestoreOldVideoQualityMenuPatch;"
 private const val EXTENSION_SPOOF_DEVICE_DIMENSIONS_CLASS_DESCRIPTOR =
     "$VIDEO_PATH/SpoofDeviceDimensionsPatch;"
 private const val EXTENSION_VIDEO_QUALITY_CLASS_DESCRIPTOR =
@@ -228,7 +228,7 @@ val videoPlaybackPatch = bytecodePatch(
 
         // endregion
 
-        // region patch for restore old video quality menu
+        // region patch for show advanced video quality menu
 
         qualityMenuViewInflateFingerprint.matchOrThrow().let {
             it.method.apply {
@@ -238,7 +238,7 @@ val videoPlaybackPatch = bytecodePatch(
                 addInstruction(
                     insertIndex + 1,
                     "invoke-static { v$insertRegister }, " +
-                            "$EXTENSION_RESTORE_OLD_VIDEO_QUALITY_MENU_CLASS_DESCRIPTOR->restoreOldVideoQualityMenu(Landroid/widget/ListView;)V"
+                            "$EXTENSION_ADVANCED_VIDEO_QUALITY_MENU_CLASS_DESCRIPTOR->showAdvancedVideoQualityMenu(Landroid/widget/ListView;)V"
                 )
             }
             val onItemClickMethod =
@@ -255,7 +255,7 @@ val videoPlaybackPatch = bytecodePatch(
 
                 addInstructionsWithLabels(
                     insertIndex, """
-                        invoke-static {}, $EXTENSION_RESTORE_OLD_VIDEO_QUALITY_MENU_CLASS_DESCRIPTOR->restoreOldVideoQualityMenu()Z
+                        invoke-static {}, $EXTENSION_ADVANCED_VIDEO_QUALITY_MENU_CLASS_DESCRIPTOR->showAdvancedVideoQualityMenu()Z
                         move-result v$insertRegister
                         if-nez v$insertRegister, :show
                         """, ExternalLabel("show", getInstruction(jumpIndex))
@@ -263,7 +263,7 @@ val videoPlaybackPatch = bytecodePatch(
             } ?: throw PatchException("Failed to find onItemClick method")
         }
 
-        recyclerViewTreeObserverHook("$EXTENSION_RESTORE_OLD_VIDEO_QUALITY_MENU_CLASS_DESCRIPTOR->onFlyoutMenuCreate(Landroid/support/v7/widget/RecyclerView;)V")
+        recyclerViewTreeObserverHook("$EXTENSION_ADVANCED_VIDEO_QUALITY_MENU_CLASS_DESCRIPTOR->onFlyoutMenuCreate(Landroid/support/v7/widget/RecyclerView;)V")
         addLithoFilter(VIDEO_QUALITY_MENU_FILTER_CLASS_DESCRIPTOR)
 
         // endregion
