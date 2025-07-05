@@ -1,7 +1,7 @@
 package app.revanced.extension.youtube.patches.shorts;
 
 import static app.revanced.extension.shared.utils.Utils.hideViewUnderCondition;
-import static app.revanced.extension.youtube.utils.ExtendedUtils.validateValue;
+import static app.revanced.extension.shared.utils.Utils.validateValue;
 
 import android.util.TypedValue;
 import android.view.View;

@@ -5,10 +5,10 @@ import android.util.TypedValue
 import android.view.ViewGroup
 import app.revanced.extension.shared.utils.ResourceUtils.ResourceType
 import app.revanced.extension.shared.utils.ResourceUtils.getIdentifier
+import app.revanced.extension.shared.utils.Utils.validateValue
 import app.revanced.extension.youtube.settings.Settings
 import app.revanced.extension.youtube.swipecontrols.misc.Rectangle
 import app.revanced.extension.youtube.swipecontrols.misc.applyDimension
-import app.revanced.extension.youtube.utils.ExtendedUtils.validateValue
 import kotlin.math.min
 
 /**

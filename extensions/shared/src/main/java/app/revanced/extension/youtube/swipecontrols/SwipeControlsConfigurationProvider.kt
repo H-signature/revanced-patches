@@ -2,10 +2,10 @@ package app.revanced.extension.youtube.swipecontrols
 
 import android.content.Context
 import android.graphics.Color
+import app.revanced.extension.shared.utils.Utils.validateValue
 import app.revanced.extension.youtube.settings.Settings
 import app.revanced.extension.youtube.shared.LockModeState
 import app.revanced.extension.youtube.shared.PlayerType
-import app.revanced.extension.youtube.utils.ExtendedUtils.validateValue
 
 /**
  * provider for configuration for volume and brightness swipe controls

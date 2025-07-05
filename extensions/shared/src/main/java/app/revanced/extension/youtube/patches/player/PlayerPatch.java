@@ -3,7 +3,7 @@ package app.revanced.extension.youtube.patches.player;
 import static app.revanced.extension.shared.utils.Utils.hideViewBy0dpUnderCondition;
 import static app.revanced.extension.shared.utils.Utils.hideViewByRemovingFromParentUnderCondition;
 import static app.revanced.extension.shared.utils.Utils.hideViewUnderCondition;
-import static app.revanced.extension.youtube.utils.ExtendedUtils.validateValue;
+import static app.revanced.extension.shared.utils.Utils.validateValue;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
