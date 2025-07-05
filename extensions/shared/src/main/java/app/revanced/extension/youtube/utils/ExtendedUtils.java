@@ -46,32 +46,6 @@ public class ExtendedUtils extends PackageUtils {
     public static final boolean IS_19_34_OR_GREATER = isVersionOrGreater("19.34.00");
     public static final boolean IS_20_09_OR_GREATER = isVersionOrGreater("20.09.00");
 
-    public static int validateValue(IntegerSetting settings, int min, int max, String message) {
-        int value = settings.get();
-
-        if (value < min || value > max) {
-            showToastShort(str(message));
-            showToastShort(str("revanced_extended_reset_to_default_toast"));
-            settings.resetToDefault();
-            value = settings.defaultValue;
-        }
-
-        return value;
-    }
-
-    public static float validateValue(FloatSetting settings, float min, float max, String message) {
-        float value = settings.get();
-
-        if (value < min || value > max) {
-            showToastShort(str(message));
-            showToastShort(str("revanced_extended_reset_to_default_toast"));
-            settings.resetToDefault();
-            value = settings.defaultValue;
-        }
-
-        return value;
-    }
-
     public static boolean isFullscreenHidden() {
         return Settings.DISABLE_ENGAGEMENT_PANEL.get() || Settings.HIDE_QUICK_ACTIONS.get();
     }
