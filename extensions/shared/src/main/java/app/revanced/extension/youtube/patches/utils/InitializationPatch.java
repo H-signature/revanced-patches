@@ -23,14 +23,15 @@ public class InitializationPatch {
      * To fix this, show the restart dialog when the app is installed for the first time.
      */
     public static void onCreate(@NonNull Activity mActivity) {
-        if (SETTINGS_INITIALIZED.get()) {
-            return;
+        if (!SETTINGS_INITIALIZED.get()) {
+            runOnMainThreadDelayed(() -> showRestartDialog(mActivity, str("revanced_extended_restart_first_run"), 3500), 500);
+            runOnMainThreadDelayed(() -> SETTINGS_INITIALIZED.save(true), 1000);
         }
-        runOnMainThreadDelayed(() -> showRestartDialog(mActivity, str("revanced_extended_restart_first_run"), 3500), 500);
-        runOnMainThreadDelayed(() -> SETTINGS_INITIALIZED.save(true), 1000);
     }
 
     public static void setExtendedUtils(@NonNull Activity mActivity) {
-        ExtendedUtils.setPlayerFlyoutMenuAdditionalSettings();
+        if (SETTINGS_INITIALIZED.get()) {
+            ExtendedUtils.setPlayerFlyoutMenuAdditionalSettings();
+        }
     }
 }
