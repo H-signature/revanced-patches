@@ -76,10 +76,6 @@ private val settingsBytecodePatch = bytecodePatch(
 
         injectOnCreateMethodCall(
             EXTENSION_INITIALIZATION_CLASS_DESCRIPTOR,
-            "setExtendedUtils"
-        )
-        injectOnCreateMethodCall(
-            EXTENSION_INITIALIZATION_CLASS_DESCRIPTOR,
             "onCreate"
         )
         injectConstructorMethodCall(
