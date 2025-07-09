@@ -223,6 +223,25 @@ public class ExtendedUtils extends PackageUtils {
         }
         mainLayout.startAnimation(slideInABottomAnimation);
 
+        // Animate dialog off-screen and dismiss.
+        final float remainingDistance = mContext.getResources().getDisplayMetrics().heightPixels
+                - mainLayout.getTop();
+        TranslateAnimation slideOut = new TranslateAnimation(
+                0, 0, mainLayout.getTranslationY(), remainingDistance);
+        slideOut.setDuration(fadeDurationFast);
+        slideOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+
         // Set touch listener on mainLayout to enable drag-to-dismiss.
         //noinspection ClickableViewAccessibility
         mainLayout.setOnTouchListener(new View.OnTouchListener() {
@@ -253,25 +272,6 @@ public class ExtendedUtils extends PackageUtils {
                     case MotionEvent.ACTION_CANCEL:
                         // Check if dialog should be dismissed based on drag distance.
                         if (mainLayout.getTranslationY() > dismissThreshold) {
-                            // Animate dialog off-screen and dismiss.
-                            //noinspection ExtractMethodRecommender
-                            final float remainingDistance = mContext.getResources().getDisplayMetrics().heightPixels
-                                    - mainLayout.getTop();
-                            TranslateAnimation slideOut = new TranslateAnimation(
-                                    0, 0, mainLayout.getTranslationY(), remainingDistance);
-                            slideOut.setDuration(fadeDurationFast);
-                            slideOut.setAnimationListener(new Animation.AnimationListener() {
-                                @Override
-                                public void onAnimationStart(Animation animation) {}
-
-                                @Override
-                                public void onAnimationEnd(Animation animation) {
-                                    dialog.dismiss();
-                                }
-
-                                @Override
-                                public void onAnimationRepeat(Animation animation) {}
-                            });
                             mainLayout.startAnimation(slideOut);
                         } else {
                             // Animate back to original position if not dragged far enough.
@@ -298,8 +298,9 @@ public class ExtendedUtils extends PackageUtils {
         if (actionsMap != null) {
             dialog.setOnShowListener(d -> actionsMap.forEach((view, action) ->
                     view.setOnClickListener(v -> {
+                        PlayerType.getOnChange().removeObserver(playerTypeObserver);
+                        mainLayout.startAnimation(slideOut);
                         action.run();
-                        dialog.dismiss();
                     })
             ));
         }
