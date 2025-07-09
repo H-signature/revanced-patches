@@ -3,7 +3,6 @@ package app.revanced.extension.youtube.patches.shorts;
 import static app.revanced.extension.shared.utils.Utils.hideViewUnderCondition;
 import static app.revanced.extension.shared.utils.Utils.validateValue;
 
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -47,7 +46,7 @@ public class ShortsPatch {
                 "revanced_shorts_meta_panel_bottom_margin_invalid_toast"
         );
 
-        META_PANEL_BOTTOM_MARGIN = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) bottomMargin, Utils.getResources().getDisplayMetrics());
+        META_PANEL_BOTTOM_MARGIN = Utils.dipToPixels(bottomMargin);
 
         final int heightPercentage = validateValue(
                 Settings.SHORTS_NAVIGATION_BAR_HEIGHT_PERCENTAGE,
