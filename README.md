@@ -95,7 +95,7 @@ See the [documentation](https://github.com/inotia00/revanced-documentation#readm
 | `Custom header for YouTube Music` | Applies a custom header in the top left corner within the app. | 6.20.51 ~ 8.12.53 |
 | `Dark theme` | Changes the app's dark theme to the values specified in patch options. | 6.20.51 ~ 8.12.53 |
 | `Disable Cairo splash animation` | Adds an option to disable Cairo splash animation. | 7.06.54 ~ 8.12.53 |
-| `Disable DRC audio` | Adds an option to disable DRC (Dynamic Range Compression) audio. | 6.20.51 ~ 7.25.53 |
+| `Disable DRC audio` | Adds an option to disable DRC (Dynamic Range Compression) audio. | 6.20.51 ~ 8.12.53 |
 | `Disable QUIC protocol` | Adds an option to disable CronetEngine's QUIC protocol. | 6.20.51 ~ 8.12.53 |
 | `Disable dislike redirection` | Adds an option to disable redirection to the next track when clicking the Dislike button. | 6.20.51 ~ 8.12.53 |
 | `Disable forced auto captions` | Adds an option to disable captions from being automatically enabled. | 6.20.51 ~ 8.12.53 |
